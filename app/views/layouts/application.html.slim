@@ -9,17 +9,18 @@ html
     = auto_discovery_link_tag(:rss, params.merge(format: :rss))
 
   body
-    .row
-      .small-12.columns
-        .clearfix
-        h1[id="title" class="left"] = link_to 'Stadtratmonitor Leipzig', search_path
-        div(class="right")
-          div(class="left") = link_to_unless_current 'Suche', search_path
-          div(class="left header_indent") = link_to_unless_current 'Karte', geo_path
-          div(class="left header_indent") = link_to_unless_current 'Glossar', glossary_url
-          div(class="right header_indent") = link_to_unless_current 'Impressum', impressum_url
-          div(class="clear")
-        div(class="clear")
-        - flash.each do |name, msg|
-          = content_tag :div, msg, class: name
-        = yield
+    .container-fluid
+      nav class="navbar navbar-expand-lg bg-body-tertiary"
+        div class="container-fluid"
+          h1 id="title" class="navbar-brand" = link_to 'Stadtratmonitor Leipzig', search_path
+          button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            span class="navbar-toggler-icon"
+          div class="collapse navbar-collapse"
+            ul class="navbar-nav me-auto mb-2 mb-lg-0"
+              li class="nav-item" = link_to_unless_current 'Suche', search_path
+              li class="nav-item" = link_to_unless_current 'Karte', geo_path
+              li class="nav-item" = link_to_unless_current 'Glossar', glossary_url
+              li class="nav-item" = link_to_unless_current 'Impressum', impressum_url
+      - flash.each do |name, msg|
+        = content_tag :div, msg, class: name
+      = yield
