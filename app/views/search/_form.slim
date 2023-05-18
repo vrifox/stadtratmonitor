@@ -1,15 +1,12 @@
-= form_for @search_definition, url: search_path, method: :get do |f|
+= form_for(@search_definition, url: search_path, method: :get, html: { class: "d-flex" }) do |f|
   = f.text_field :query, placeholder: 'Suche …', autofocus: true
-  fieldset
-    legend Ergebnisse filtern
-    .row
-      .small-4.columns
-        = filter_select(f, "paper_type", "Typ", @paper_type_facets, @search_definition.paper_type)
-      .small-4.columns
-        = filter_select(f, "originator", "Einreicher", @originator_facets, @search_definition.originator)
-      .small-4.columns.end
-        label Sortierung
-        = f.radio_button :sort_by, :date, onchange: "this.form.submit();"
-        label for="sort_by_date" Nach Datum
-        = f.radio_button :sort_by, :score, onchange: "this.form.submit();"
-        label for="sort_by_score" Nach Relevanz
+  fieldset class="d-flex flex-row"
+    legend class="d-none" Ergebnisse filtern
+    = filter_select(f, "paper_type", "Typ", @paper_type_facets, @search_definition.paper_type)
+    = filter_select(f, "originator", "Einreicher", @originator_facets, @search_definition.originator)
+    .form-check
+      = f.radio_button :sort_by, :date, onchange: "this.form.submit();", class: "form-check-input"
+      label class="form-check-label" for="sort_by_date" Nach Datum
+    .form-check
+      = f.radio_button :sort_by, :score, onchange: "this.form.submit();", class: "form-check-input"
+      label class="form-check-label" for="sort_by_score" Nach Relevanz
